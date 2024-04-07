@@ -67,8 +67,8 @@ mvn clean package -Dmaven.test.skip=true
 #### 前端技术
 | 技术         | 说明                   | 官网                                   |
 | ----------  | ---------------------  | -------------------------------------- |
-| Bootstrap3  | 前端框架               | https://vuejs.org/                     |
-| jQuery1     | 路由框架               | https://router.vuejs.org/              |
+| Bootstrap3  | 前端框架               | https://www.bootcss.com/               |
+| jQuery1     | 路由框架               | https://blog.jquery.com/               |
 
 #### 架构图
 ##### 系统架构图
