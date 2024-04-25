@@ -1,0 +1,1 @@
+import{r as s,j as r}from"./index-e632bbdf.js";import{P as o}from"./ProCard-40fc63fe.js";import"./index-73afd5ab.js";const l=()=>{const[t,e]=s.useState("tab1");return r.jsx(o,{style:{height:"100%"},tabs:{tabPosition:"left",activeKey:t,items:[{label:"基本设置",key:"tab1",children:"基本设置"},{label:"新消息通知",key:"tab2",children:"新消息通知"}],onChange:a=>{e(a)}}})};export{l as default};
