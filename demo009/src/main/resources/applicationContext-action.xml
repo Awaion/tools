@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="departmentAction" class="com.awaion.demo009.web.action.DepartmentAction" scope="prototype">
+        <property name="departmentService" ref="departmentService"/>
+    </bean>
+    <bean id="employeeAction" class="com.awaion.demo009.web.action.EmployeeAction" scope="prototype">
+        <property name="employeeService" ref="employeeService"/>
+        <property name="departmentService" ref="departmentService"/>
+        <property name="roleService" ref="roleService"/>
+    </bean>
+    <bean id="permissionAction" class="com.awaion.demo009.web.action.PermissionAction" scope="prototype">
+        <property name="permissionService" ref="permissionService"/>
+    </bean>
+    <bean id="roleAction" class="com.awaion.demo009.web.action.RoleAction" scope="prototype">
+        <property name="roleService" ref="roleService"/>
+        <property name="permissionService" ref="permissionService"/>
+    </bean>
+    <bean id="loginAction" class="com.awaion.demo009.web.action.LoginAction" scope="prototype">
+        <property name="employeeService" ref="employeeService"/>
+    </bean>
+</beans>
