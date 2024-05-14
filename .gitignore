@@ -24,3 +24,6 @@ hs_err_pid*
 /README.en.md
 /demo007/out
 /demo007/.idea
+/demo008/demo008.iml
+/demo008/.idea
+/demo008/target
