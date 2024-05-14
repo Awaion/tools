@@ -10,7 +10,7 @@
 文档地址：[https://github.com/Awaion/tools](https://github.com/Awaion/tools)
 
 ## 当前项目介绍
-- `Struts`, `Spring`, `Spring MVC`框架集成
+- `Struts`, `Spring`, `MyBatis`框架集成
 - 需要依赖`MySQL`, `Tomcat`
 - 这是一个古老的项目
 
