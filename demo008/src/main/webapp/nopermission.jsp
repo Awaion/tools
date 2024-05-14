@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<title>PSS（演示版）</title>
+<title>demo008</title>
 <link href="/style/error_css.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript" src="/js/jquery/jquery.js"></script>
 <script type="text/javascript" src="/js/system/login.js"></script>
