@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.awaion.demo010.base.mapper.SystemdictionaryMapper">
+
+    <resultMap id="BaseResultMap" type="com.awaion.demo010.base.domain.SystemDictionary">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="sn" jdbcType="VARCHAR" property="sn"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+    </resultMap>
+
+    <insert id="insert" keyProperty="id"
+            useGeneratedKeys="true">
+        insert into systemdictionary (sn, title)
+        values (#{sn,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR})
+    </insert>
+
+
+    <update id="updateByPrimaryKey">
+        update systemdictionary
+        set sn = #{sn,jdbcType=VARCHAR},
+          title = #{title,jdbcType=VARCHAR}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select id, sn, title
+        from systemdictionary
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, sn, title
+        from systemdictionary
+    </select>
+
+
+    <sql id="conditon_sql">
+        <where>
+            <if test="keyword!=null and keyword!=''">
+                AND (sn LIKE concat('%',#{keyword},'%') or title LIKE concat('%',#{keyword},'%'))
+            </if>
+        </where>
+    </sql>
+
+
+    <select id="queryCount" resultType="java.lang.Integer">
+        SELECT count(*) FROM
+        systemdictionary
+        <include refid="conditon_sql"></include>
+
+    </select>
+
+    <select id="queryData" resultMap="BaseResultMap">
+        SELECT id,sn,title
+        FROM systemdictionary
+        <include refid="conditon_sql"></include>
+        limit #{start},#{pageSize}
+    </select>
+
+
+</mapper>

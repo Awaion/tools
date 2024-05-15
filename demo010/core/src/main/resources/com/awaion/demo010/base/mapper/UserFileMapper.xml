@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.awaion.demo010.base.mapper.UserFileMapper">
+
+    <resultMap id="BaseResultMap" type="com.awaion.demo010.base.domain.UserFile">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="state" property="state" jdbcType="TINYINT"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="auditTime" property="auditTime" jdbcType="TIMESTAMP"/>
+        <result column="applyTime" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="score" property="score" jdbcType="TINYINT"/>
+        <result column="image" property="image" jdbcType="VARCHAR"/>
+
+        <association property="applier" javaType="com.awaion.demo010.base.domain.Logininfo" columnPrefix="ap_">
+            <id column="id" property="id"></id>
+            <result column="username" property="username"></result>
+        </association>
+
+        <association property="auditor" javaType="com.awaion.demo010.base.domain.Logininfo" columnPrefix="au_">
+            <id column="id" property="id"></id>
+            <result column="username" property="username"></result>
+        </association>
+
+        <association property="fileType" javaType="com.awaion.demo010.base.domain.SystemDictionaryItem"
+                     columnPrefix="item_">
+            <id column="id" property="id"></id>
+            <result column="title" property="title"></result>
+        </association>
+
+        <!--<result column="fileType_id" property="fileType" jdbcType="BIGINT"/>
+        <result column="applier_id" property="applier" jdbcType="BIGINT"/>
+        <result column="auditor_id" property="auditor" jdbcType="BIGINT"/>-->
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id" keyColumn="id">
+        insert into userfile (state, remark, auditTime,
+          applyTime, auditor_id, applier_id,
+          score, image, fileType_id
+          )
+        values (#{state,jdbcType=TINYINT}, #{remark,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP},
+          #{applyTime,jdbcType=TIMESTAMP}, #{auditor.id,jdbcType=BIGINT}, #{applier.id,jdbcType=BIGINT},
+          #{score,jdbcType=TINYINT}, #{image,jdbcType=VARCHAR}, #{fileType.id,jdbcType=BIGINT}
+          )
+    </insert>
+
+
+    <update id="updateByPrimaryKey">
+        update userfile
+        set state = #{state,jdbcType=TINYINT},
+          remark = #{remark,jdbcType=VARCHAR},
+          auditTime = #{auditTime,jdbcType=TIMESTAMP},
+          applyTime = #{applyTime,jdbcType=TIMESTAMP},
+          auditor_id = #{auditor.id,jdbcType=BIGINT},
+          applier_id = #{applier.id,jdbcType=BIGINT},
+          score = #{score,jdbcType=TINYINT},
+          image = #{image,jdbcType=VARCHAR},
+          fileType_id = #{fileType.id,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <!--3个sql语句模块--><!--3个sql语句模块--><!--3个sql语句模块--><!--3个sql语句模块-->
+    <sql id="select_sql">
+        select uf.id, uf.state, uf.remark, uf.auditTime, uf.applyTime, uf.score, uf.image,
+        item.id as item_id, item.title AS item_title,ap.id AS ap_id ,ap.username AS ap_username ,au.id AS au_id ,au.username AS au_username
+    </sql>
+
+    <sql id="from_sql">
+        from userfile uf
+        LEFT JOIN systemdictionaryitem item ON uf.fileType_id = item.id
+        LEFT JOIN logininfo ap on uf.applier_id = ap.id
+        LEFT JOIN logininfo au on uf.auditor_id = au.id
+    </sql>
+    <sql id="where_sql">
+        <where>
+            <if test="beginDate!=null">
+                and uf.applyTime &gt;= #{beginDate}
+            </if>
+            <if test="endDate!=null">
+                and uf.applyTime &lt;= #{endDate}
+            </if>
+            <if test="state!=null and state > -1">
+                and uf.state = #{state}
+            </if>
+
+            <if test="applierId!=null">
+                and uf.applier_id = #{applierId}
+            </if>
+
+            and uf.fileType_id is not null
+        </where>
+    </sql>
+    <!--3个sql语句模块--><!--3个sql语句模块--><!--3个sql语句模块--><!--3个sql语句模块-->
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        <include refid="select_sql"></include>
+        <include refid="from_sql"></include>
+        where uf.id = #{id,jdbcType=BIGINT}
+    </select>
+
+
+    <select id="listUnselectTypeFiles" resultMap="BaseResultMap">
+        <include refid="select_sql"></include>
+        <include refid="from_sql"></include>
+        WHERE uf.applier_id = #{userId} and uf.fileType_id is null
+    </select>
+
+    <select id="listSelectTypeFiles" resultMap="BaseResultMap">
+        <include refid="select_sql"></include>
+        <include refid="from_sql"></include>
+        WHERE uf.applier_id = #{userId} and uf.fileType_id is not null
+    </select>
+
+
+    <select id="querycount" resultType="Integer">
+        SELECT count(uf.id)
+        <include refid="from_sql"></include>
+        <include refid="where_sql"></include>
+    </select>
+
+    <select id="querydata" resultMap="BaseResultMap">
+        <include refid="select_sql"></include>
+        <include refid="from_sql"></include>
+        <include refid="where_sql"></include>
+        <if test="pageSize>0">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+</mapper>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.awaion.demo010.business.mapper.RechargeOfflineMapper">
+    <resultMap id="BaseResultMap" type="com.awaion.demo010.business.domain.RechargeOffline">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="state" property="state" jdbcType="TINYINT"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="auditTime" property="auditTime" jdbcType="TIMESTAMP"/>
+        <result column="tradeCode" property="tradeCode" jdbcType="VARCHAR"/>
+        <result column="applyTime" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="rechargeTime" property="rechargeTime" jdbcType="TIMESTAMP"/>
+        <result column="amount" property="amount" jdbcType="DECIMAL"/>
+        <result column="note" property="note" jdbcType="VARCHAR"/>
+
+        <association property="applier" columnPrefix="ap_" javaType="com.awaion.demo010.base.domain.Logininfo">
+            <id column="id" property="id"></id>
+            <result property="username" column="username"></result>
+        </association>
+
+        <association property="auditor" columnPrefix="au_" javaType="com.awaion.demo010.base.domain.Logininfo">
+            <id column="id" property="id"></id>
+            <result property="username" column="username"></result>
+        </association>
+
+        <association property="bankInfo" columnPrefix="bi_" javaType="PlatFormBankInfo"
+                     resultMap="com.awaion.demo010.business.mapper.PlatFormBankInfoMapper.BaseResultMap">
+        </association>
+    </resultMap>
+
+
+    <insert id="insert" useGeneratedKeys="true"
+            keyProperty="id">
+        insert into rechargeoffline (state, remark, auditTime,
+          applyTime, auditor_id, applier_id,
+          tradeCode, rechargeTime, amount,
+          note, bankInfo_id)
+        values (#{state,jdbcType=TINYINT}, #{remark,jdbcType= VARCHAR}, #{auditTime,jdbcType=TIMESTAMP},
+          #{applyTime,jdbcType=TIMESTAMP}, #{auditor.id,jdbcType=BIGINT}, #{applier.id,jdbcType=BIGINT},
+          #{tradeCode,jdbcType=VARCHAR}, #{rechargeTime,jdbcType=TIMESTAMP}, #{amount,jdbcType=DECIMAL},
+          #{note,jdbcType=VARCHAR}, #{bankInfo.id,jdbcType=BIGINT})
+    </insert>
+
+
+    <update id="updateByPrimaryKey">
+        update rechargeoffline
+        set state = #{state,jdbcType=TINYINT},
+          remark = #{remark,jdbcType=VARCHAR},
+          auditTime = #{auditTime,jdbcType=TIMESTAMP},
+          applyTime = #{applyTime,jdbcType=TIMESTAMP},
+          auditor_id = #{auditor.id,jdbcType=BIGINT},
+          applier_id = #{applier.id,jdbcType=BIGINT},
+          tradeCode = #{tradeCode,jdbcType=VARCHAR},
+          rechargeTime = #{rechargeTime,jdbcType=TIMESTAMP},
+          amount = #{amount,jdbcType=DECIMAL},
+          note = #{note,jdbcType=VARCHAR},
+          bankInfo_id = #{bankInfo.id,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <!--三个sql语句块三个sql语句块三个sql语句块三个sql语句块-->
+    <sql id="select_sql">
+        select ro.id, ro.state, ro.remark, ro.auditTime, ro.applyTime, ro.tradeCode,
+        ro.rechargeTime, ro.amount, ro.note, bi.id as bi_id,bi.bankName AS bi_bankName,bi.accountNumber AS bi_accountNumber,bi.accountName AS bi_accountName
+        ,bi.forkName AS bi_forkName, ap.id as ap_id, ap.username as ap_username, au.id as au_id ,au.username as au_username
+    </sql>
+
+    <sql id="from_sql">
+        from rechargeoffline ro
+        LEFT JOIN logininfo ap on ro.applier_id = ap.id
+        LEFT JOIN  logininfo au on ro.auditor_id  = au.id
+        LEFT JOIN  platformbankinfo bi on ro.bankInfo_id = bi.id
+    </sql>
+
+    <sql id="where_sql">
+        <where>
+            <if test="beginDate!=null">
+                and ro.rechargeTime &gt;= #{beginDate}
+            </if>
+            <if test="endDate!=null">
+                and ro.rechargeTime &lt;= #{endDate}
+            </if>
+            <if test="state!=null and state > -1">
+                and ro.state = #{state}
+            </if>
+            <if test="bankInfoId!=null and bankInfoId > -1">
+                and ro.bankInfo_id = #{bankInfoId}
+            </if>
+            <if test="tradeCode!=null and tradeCode!=''">
+                and ro.tradeCode = #{tradeCode}
+            </if>
+        </where>
+    </sql>
+    <!--三个sql语句块三个sql语句块三个sql语句块三个sql语句块-->
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        <include refid="select_sql"></include>
+        <include refid="from_sql"></include>
+        where ro.id = #{id,jdbcType=BIGINT}
+    </select>
+
+
+    <select id="querycount" resultType="java.lang.Integer">
+        SELECT count(ro.id)
+        <include refid="from_sql"></include>
+        <include refid="where_sql"></include>
+    </select>
+    <select id="querydata" resultMap="BaseResultMap">
+        <include refid="select_sql"></include>
+        <include refid="from_sql"></include>
+        <include refid="where_sql"></include>
+        limit #{start},#{pageSize}
+    </select>
+
+
+</mapper>

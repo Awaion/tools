@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.awaion.demo010.business.mapper.PaymentScheduleDetailMapper">
+    <resultMap id="BaseResultMap" type="com.awaion.demo010.business.domain.PaymentScheduleDetail">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="bidAmount" property="bidAmount" jdbcType="DECIMAL"/>
+        <result column="bidId" property="bidId" jdbcType="BIGINT"/>
+        <result column="totalAmount" property="totalAmount" jdbcType="DECIMAL"/>
+        <result column="principal" property="principal" jdbcType="DECIMAL"/>
+        <result column="interest" property="interest" jdbcType="DECIMAL"/>
+        <result column="monthIndex" property="monthIndex" jdbcType="TINYINT"/>
+        <result column="deadLine" property="deadLine" jdbcType="TIMESTAMP"/>
+        <result column="bidRequestId" property="bidRequestId" jdbcType="BIGINT"/>
+        <result column="payDate" property="payDate" jdbcType="TIMESTAMP"/>
+        <result column="returnType" property="returnType" jdbcType="TINYINT"/>
+        <result column="paymentScheduleId" property="paymentScheduleId" jdbcType="BIGINT"/>
+        <result column="toLogininfoId" property="toLogininfoId" jdbcType="BIGINT"/>
+
+        <association property="fromLogininfo" columnPrefix="flg_" javaType="com.awaion.demo010.base.domain.Logininfo">
+            <id column="id" property="id"></id>
+            <result property="username" column="username"></result>
+        </association>
+
+
+    </resultMap>
+
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into paymentscheduledetail (bidAmount, bidId, totalAmount,
+          principal, interest, monthIndex,
+          deadLine, bidRequestId, payDate,
+          returnType, paymentScheduleId, fromLogininfo_id,
+          toLogininfoId)
+        values (#{bidAmount,jdbcType=DECIMAL}, #{bidId,jdbcType=BIGINT}, #{totalAmount,jdbcType=DECIMAL},
+          #{principal,jdbcType=DECIMAL}, #{interest,jdbcType=DECIMAL}, #{monthIndex,jdbcType=TINYINT},
+          #{deadLine,jdbcType=TIMESTAMP}, #{bidRequestId,jdbcType=BIGINT}, #{payDate,jdbcType=TIMESTAMP},
+          #{returnType,jdbcType=TINYINT}, #{paymentScheduleId,jdbcType=BIGINT}, #{fromLogininfo.id,jdbcType=BIGINT},
+          #{toLogininfoId,jdbcType=BIGINT})
+    </insert>
+
+
+    <update id="updateByPrimaryKey">
+        update paymentscheduledetail
+        set bidAmount = #{bidAmount,jdbcType=DECIMAL},
+          bidId = #{bidId,jdbcType=BIGINT},
+          totalAmount = #{totalAmount,jdbcType=DECIMAL},
+          principal = #{principal,jdbcType=DECIMAL},
+          interest = #{interest,jdbcType=DECIMAL},
+          monthIndex = #{monthIndex,jdbcType=TINYINT},
+          deadLine = #{deadLine,jdbcType=TIMESTAMP},
+          bidRequestId = #{bidRequestId,jdbcType=BIGINT},
+          payDate = #{payDate,jdbcType=TIMESTAMP},
+          returnType = #{returnType,jdbcType=TINYINT},
+          paymentScheduleId = #{paymentScheduleId,jdbcType=BIGINT},
+          fromLogininfo_id = #{fromLogininfo.id,jdbcType=BIGINT},
+          toLogininfoId = #{toLogininfoId,jdbcType=BIGINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select psd.id, psd.bidAmount, psd.bidId, psd.totalAmount, psd.principal, psd.interest, psd.monthIndex, psd.deadLine,
+        psd.bidRequestId, psd.payDate, psd.returnType, psd.paymentScheduleId,
+        psd.toLogininfoId ,flg.id AS flg_id,flg.username AS flg_username
+        from paymentscheduledetail psd
+        LEFT JOIN logininfo flg on psd.fromLogininfo_id  =flg.id
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+
+</mapper>

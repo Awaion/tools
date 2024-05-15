@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.awaion.demo010.base.mapper.IplogMapper">
+
+    <resultMap id="BaseResultMap" type="com.awaion.demo010.base.domain.IpLog">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="ip" property="ip" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="TINYINT"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="logintime" property="loginTime" jdbcType="TIMESTAMP"/>
+        <result column="usertype" property="userType"/>
+    </resultMap>
+
+
+    <sql id="condition_sql">
+        <where>
+            <if test="beginDate!=null">
+                AND logintime &gt;= #{beginDate}
+            </if>
+            <if test="endDate!=null">
+                AND logintime &lt;= #{endDate}
+            </if>
+            <if test="state>-1">
+                AND state = #{state}
+            </if>
+            <if test="username!=null and username!=''">
+                AND username = #{username}
+            </if>
+            <if test="userType>-1">
+                AND usertype = #{userType}
+            </if>
+
+        </where>
+    </sql>
+
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into iplog (ip, state, username,
+          logintime,usertype)
+        values (#{ip,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT}, #{username,jdbcType=VARCHAR},
+          #{loginTime,jdbcType=TIMESTAMP},#{userType})
+    </insert>
+
+    <select id="querycount" resultType="Integer">
+        SELECT count(*) FROM iplog
+        <include refid="condition_sql"></include>
+    </select>
+
+
+    <select id="querydata" resultMap="BaseResultMap">
+        select id, ip, state, username, logintime ,usertype
+        from iplog
+        <include refid="condition_sql"></include>
+        limit #{start},#{pageSize}
+    </select>
+
+    <select id="getLastIpLog" resultMap="BaseResultMap">
+        select id, ip, state, username, logintime ,usertype
+        from iplog
+        WHERE  username = #{username}
+        ORDER BY logintime DESC
+        limit 0,1
+    </select>
+
+
+</mapper>

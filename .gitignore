@@ -30,3 +30,11 @@ hs_err_pid*
 /demo009/demo009.iml
 /demo009/.idea
 /demo009/target
+/demo010/parent.iml
+/demo010/.idea
+/demo010/core/core.iml
+/demo010/core/target
+/demo010/mgrsite/mgrsite.iml
+/demo010/mgrsite/target
+/demo010/website/website.iml
+/demo010/website/target

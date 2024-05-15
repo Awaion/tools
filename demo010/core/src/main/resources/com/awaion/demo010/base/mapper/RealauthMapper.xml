@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.awaion.demo010.base.mapper.RealauthMapper">
+    <resultMap id="BaseResultMap" type="com.awaion.demo010.base.domain.RealAuth">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="realName" property="realName" jdbcType="VARCHAR"/>
+        <result column="sex" property="sex" jdbcType="TINYINT"/>
+        <result column="birthday" property="birthday" jdbcType="VARCHAR"/>
+        <result column="idNumber" property="idNumber" jdbcType="VARCHAR"/>
+        <result column="address" property="address" jdbcType="VARCHAR"/>
+        <result column="state" property="state" jdbcType="TINYINT"/>
+        <result column="image1" property="image1" jdbcType="VARCHAR"/>
+        <result column="image2" property="image2" jdbcType="VARCHAR"/>
+        <result column="remark" property="remark" jdbcType="VARCHAR"/>
+        <result column="auditTime" property="auditTime" jdbcType="TIMESTAMP"/>
+        <result column="applyTime" property="applyTime" jdbcType="TIMESTAMP"/>
+
+        <association property="applier" columnPrefix="ap_" javaType="com.awaion.demo010.base.domain.Logininfo">
+            <id column="id" property="id"></id>
+            <result property="username" column="username"></result>
+        </association>
+
+        <association property="auditor" columnPrefix="au_" javaType="com.awaion.demo010.base.domain.Logininfo">
+            <id column="id" property="id"></id>
+            <result property="username" column="username"></result>
+        </association>
+
+    </resultMap>
+
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+    insert into realauth (realName, sex, birthday,
+      idNumber, address, state,
+      image1, image2, remark,
+      auditTime, applyTime, auditor_id,
+      applier_id)
+    values (#{realName,jdbcType=VARCHAR}, #{sex,jdbcType=TINYINT}, #{birthday,jdbcType=VARCHAR},
+      #{idNumber,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT},
+      #{image1,jdbcType=VARCHAR}, #{image2,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR},
+      #{auditTime,jdbcType=TIMESTAMP}, #{applyTime,jdbcType=TIMESTAMP}, #{auditor.id,jdbcType=BIGINT},
+      #{applier.id,jdbcType=BIGINT})
+    </insert>
+
+
+    <update id="updateByPrimaryKey">
+    update realauth
+    set realName = #{realName,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=TINYINT},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      idNumber = #{idNumber,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      state = #{state,jdbcType=TINYINT},
+      image1 = #{image1,jdbcType=VARCHAR},
+      image2 = #{image2,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      auditTime = #{auditTime,jdbcType=TIMESTAMP},
+      applyTime = #{applyTime,jdbcType=TIMESTAMP},
+      auditor_id = #{auditor.id,jdbcType=BIGINT},
+      applier_id = #{applier.id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <!--三个sql语句块三个sql语句块三个sql语句块三个sql语句块-->
+    <sql id="select_sql">
+         select ra.id, ra.realName, ra.sex, ra.birthday, ra.idNumber, ra.address, ra.state, ra.image1, ra.image2, ra.remark,
+          ra.auditTime, ra.applyTime, ap.id as ap_id, ap.username as ap_username, au.id as au_id ,au.username as au_username
+    </sql>
+
+    <sql id="from_sql">
+        from realauth ra
+        LEFT JOIN logininfo ap on ra.applier_id = ap.id
+        LEFT JOIN  logininfo au on ra.auditor_id  = au.id
+    </sql>
+
+    <sql id="condition_sql">
+        <where>
+            <if test="beginDate!=null">
+                and ra.applyTime &gt;= #{beginDate}
+            </if>
+            <if test="endDate!=null">
+                and ra.applyTime &lt;= #{endDate}
+            </if>
+            <if test="state!=null and state > -1">
+                and ra.state = #{state}
+            </if>
+        </where>
+    </sql>
+    <!--三个sql语句块三个sql语句块三个sql语句块三个sql语句块-->
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        <include refid="select_sql"></include>
+        <include refid="from_sql"></include>
+        where ra.id = #{id,jdbcType=BIGINT}
+    </select>
+
+
+    <select id="querycount" resultType="Integer">
+        SELECT count(ra.id)
+        <include refid="from_sql"></include>
+        <include refid="condition_sql"></include>
+    </select>
+
+
+    <select id="querydata" resultMap="BaseResultMap">
+        <include refid="select_sql"></include>
+        <include refid="from_sql"></include>
+        <include refid="condition_sql"></include>
+        limit #{start},#{pageSize}
+    </select>
+
+</mapper>

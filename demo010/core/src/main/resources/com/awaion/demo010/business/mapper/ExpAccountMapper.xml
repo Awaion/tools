@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.awaion.demo010.business.mapper.ExpAccountMapper">
+
+    <resultMap id="BaseResultMap" type="com.awaion.demo010.business.domain.ExpAccount">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="usableAmount" jdbcType="DECIMAL" property="usableAmount"/>
+        <result column="freezedAmount" jdbcType="DECIMAL" property="freezedAmount"/>
+        <result column="unReturnExpAmount" jdbcType="DECIMAL" property="unReturnExpAmount"/>
+    </resultMap>
+
+
+    <insert id="insert" keyProperty="id">
+        insert into expaccount (id,usableAmount, freezedAmount, unReturnExpAmount
+          )
+        values (#{id},#{usableAmount,jdbcType=DECIMAL}, #{freezedAmount,jdbcType=DECIMAL}, #{unReturnExpAmount,jdbcType=DECIMAL}
+          )
+    </insert>
+
+
+    <update id="updateByPrimaryKey">
+        update expaccount
+        set usableAmount = #{usableAmount,jdbcType=DECIMAL},
+          freezedAmount = #{freezedAmount,jdbcType=DECIMAL},
+          unReturnExpAmount = #{unReturnExpAmount,jdbcType=DECIMAL}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select id, usableAmount, freezedAmount, unReturnExpAmount
+        from expaccount
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+
+    <select id="selectAll" resultMap="BaseResultMap">
+        select id, usableAmount, freezedAmount, unReturnExpAmount
+        from expaccount
+    </select>
+
+
+</mapper>

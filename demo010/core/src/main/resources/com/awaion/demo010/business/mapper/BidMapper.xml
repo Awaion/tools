@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.awaion.demo010.business.mapper.BidMapper">
+    <resultMap id="BaseResultMap" type="com.awaion.demo010.business.domain.Bid">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="actualRate" property="actualRate" jdbcType="DECIMAL"/>
+        <result column="availableAmount" property="availableAmount" jdbcType="DECIMAL"/>
+        <result column="bidRequestId" property="bidRequestId" jdbcType="BIGINT"/>
+        <result column="bidTime" property="bidTime" jdbcType="TIMESTAMP"/>
+        <result column="bidRequestTitle" property="bidRequestTitle" jdbcType="VARCHAR"/>
+        <result column="bidRequestState" property="bidRequestState" jdbcType="TINYINT"/>
+
+        <association property="bidUser" javaType="com.awaion.demo010.base.domain.Logininfo" columnPrefix="li_">
+            <id column="id" property="id"></id>
+            <result column="username" property="username"></result>
+        </association>
+    </resultMap>
+
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into bid (actualRate, availableAmount, bidRequestId,
+          bidUser_id, bidTime, bidRequestTitle,
+          bidRequestState)
+        values (#{actualRate,jdbcType=DECIMAL}, #{availableAmount,jdbcType=DECIMAL}, #{bidRequestId,jdbcType=BIGINT},
+          #{bidUser.id,jdbcType=BIGINT}, #{bidTime,jdbcType=TIMESTAMP}, #{bidRequestTitle,jdbcType=VARCHAR},
+          #{bidRequestState,jdbcType=TINYINT})
+    </insert>
+
+
+    <update id="updateByPrimaryKey">
+        update bid
+        set actualRate = #{actualRate,jdbcType=DECIMAL},
+          availableAmount = #{availableAmount,jdbcType=DECIMAL},
+          bidrequestId = #{bidrequestId,jdbcType=BIGINT},
+          bidUser_id = #{bidUser.id,jdbcType=BIGINT},
+          bidTime = #{bidTime,jdbcType=TIMESTAMP},
+          bidRequestTitle = #{bidRequestTitle,jdbcType=VARCHAR},
+          bidRequestState = #{bidRequestState,jdbcType=TINYINT}
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+
+    <update id="updateStates">
+        update bid
+        set
+          bidRequestState = #{state,jdbcType=TINYINT}
+        where bidrequestId = #{id,jdbcType=BIGINT}
+    </update>
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        select b.id, b.actualRate, b.availableAmount, b.bidrequestId, b.bidTime, b.bidRequestTitle,
+        b.bidRequestState,li.id AS li_id ,li.username AS li_username
+        from bid b LEFT JOIN logininfo li ON b.bidUser_id = li.id
+        where b.id = #{id,jdbcType=BIGINT}
+    </select>
+
+
+    <select id="selectByBidRequestId" resultMap="BaseResultMap">
+        select b.id, b.actualRate, b.availableAmount, b.bidrequestId, b.bidTime, b.bidRequestTitle,
+        b.bidRequestState,li.id AS li_id ,li.username AS li_username
+        from bid b LEFT JOIN logininfo li ON b.bidUser_id = li.id
+        where b.bidrequestId = #{id,jdbcType=BIGINT}
+    </select>
+
+
+</mapper>

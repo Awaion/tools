@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.awaion.demo010.business.mapper.BidRequestMapper">
+    <resultMap id="BaseResultMap" type="com.awaion.demo010.business.domain.BidRequest">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="version" property="version" jdbcType="INTEGER"/>
+        <result column="bidRequestType" property="bidRequestType" jdbcType="TINYINT"/>
+        <result column="bidRequestState" property="bidRequestState" jdbcType="TINYINT"/>
+        <result column="bidRequestAmount" property="bidRequestAmount" jdbcType="DECIMAL"/>
+        <result column="currentRate" property="currentRate" jdbcType="DECIMAL"/>
+        <result column="months2Return" property="months2Return" jdbcType="TINYINT"/>
+        <result column="bidCount" property="bidCount" jdbcType="INTEGER"/>
+        <result column="totalRewardAmount" property="totalRewardAmount" jdbcType="DECIMAL"/>
+        <result column="currentSum" property="currentSum" jdbcType="DECIMAL"/>
+        <result column="title" property="title" jdbcType="VARCHAR"/>
+        <result column="description" property="description" jdbcType="VARCHAR"/>
+        <result column="note" property="note" jdbcType="VARCHAR"/>
+        <result column="disableDate" property="disableDate" jdbcType="TIMESTAMP"/>
+        <result column="disableDays" property="disableDays" jdbcType="TINYINT"/>
+        <result column="minBidAmount" property="minBidAmount" jdbcType="DECIMAL"/>
+        <result column="applyTime" property="applyTime" jdbcType="TIMESTAMP"/>
+        <result column="publishTime" property="publishTime" jdbcType="TIMESTAMP"/>
+
+
+        <association property="createUser" javaType="com.awaion.demo010.base.domain.Logininfo" columnPrefix="ca_">
+            <id column="id" property="id"></id>
+            <result column="username" property="username"></result>
+        </association>
+        <collection property="bids" ofType="com.awaion.demo010.business.domain.Bid" column="id"
+                    select="com.awaion.demo010.business.mapper.BidMapper.selectByBidRequestId"></collection>
+    </resultMap>
+
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        insert into bidrequest (version, bidRequestType, bidRequestState,
+          bidRequestAmount, currentRate, months2Return,
+          bidCount, totalRewardAmount, currentSum,
+          title, description, note,
+          disableDate, createUser_id, disableDays,
+          minBidAmount, applyTime, publishTime
+          )
+        values (0, #{bidRequestType,jdbcType=TINYINT}, #{bidRequestState,jdbcType=TINYINT},
+          #{bidRequestAmount,jdbcType=DECIMAL}, #{currentRate,jdbcType=DECIMAL}, #{months2Return,jdbcType=TINYINT},
+          #{bidCount,jdbcType=INTEGER}, #{totalRewardAmount,jdbcType=DECIMAL}, #{currentSum,jdbcType=DECIMAL},
+          #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR},
+          #{disableDate,jdbcType=TIMESTAMP}, #{createUser.id,jdbcType=BIGINT}, #{disableDays,jdbcType=TINYINT},
+          #{minBidAmount,jdbcType=DECIMAL}, #{applyTime,jdbcType=TIMESTAMP}, #{publishTime,jdbcType=TIMESTAMP}
+          )
+    </insert>
+
+
+    <update id="updateByPrimaryKey">
+        update bidrequest
+        set version = version +1,
+          bidRequestType = #{bidRequestType,jdbcType=TINYINT},
+          bidRequestState = #{bidRequestState,jdbcType=TINYINT},
+          bidRequestAmount = #{bidRequestAmount,jdbcType=DECIMAL},
+          currentRate = #{currentRate,jdbcType=DECIMAL},
+          months2Return = #{months2Return,jdbcType=TINYINT},
+          bidCount = #{bidCount,jdbcType=INTEGER},
+          totalRewardAmount = #{totalRewardAmount,jdbcType=DECIMAL},
+          currentSum = #{currentSum,jdbcType=DECIMAL},
+          title = #{title,jdbcType=VARCHAR},
+          description = #{description,jdbcType=VARCHAR},
+          note = #{note,jdbcType=VARCHAR},
+          disableDate = #{disableDate,jdbcType=TIMESTAMP},
+          createUser_id = #{createUser.id,jdbcType=BIGINT},
+          disableDays = #{disableDays,jdbcType=TINYINT},
+          minBidAmount = #{minBidAmount,jdbcType=DECIMAL},
+          applyTime = #{applyTime,jdbcType=TIMESTAMP},
+          publishTime = #{publishTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=BIGINT} and version = #{version}
+    </update>
+
+
+    <!--三个sql语句模块--><!--三个sql语句模块--><!--三个sql语句模块--><!--三个sql语句模块-->
+
+    <sql id="select_sql">
+        select b.id, b.version, b.bidRequestType, b.bidRequestState, b.bidRequestAmount, b.currentRate,
+          b.months2Return, b.bidCount, b.totalRewardAmount, b.currentSum, b.title, b.description, b.note,
+          b.disableDate, b.disableDays, b.minBidAmount, b.applyTime, b.publishTime ,ca.id AS ca_id, ca.username AS ca_username
+    </sql>
+
+    <sql id="from_sql">
+        from bidrequest b JOIN  logininfo ca ON b.createUser_id= ca.id
+    </sql>
+
+    <sql id="where_sql">
+        <where>
+            <if test="bidRequestState>-1">
+                AND b.bidRequestState = #{bidRequestState}
+            </if>
+            <if test="states!=null">
+                AND b.bidRequestState in
+                <foreach collection="states" open="(" separator="," close=")" item="item">
+                    #{item}
+                </foreach>
+            </if>
+        </where>
+    </sql>
+    <!--三个sql语句模块--><!--三个sql语句模块--><!--三个sql语句模块--><!--三个sql语句模块-->
+
+
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap">
+        <include refid="select_sql"></include>
+        <include refid="from_sql"></include>
+        where b.id = #{id,jdbcType=BIGINT}
+    </select>
+
+
+    <!--高级查询的方法-->
+    <select id="querycount" resultType="Integer">
+        SELECT count(b.id)
+        <include refid="from_sql"></include>
+        <include refid="where_sql"></include>
+    </select>
+
+
+    <select id="querydata" resultMap="BaseResultMap">
+        <include refid="select_sql"></include>
+        <include refid="from_sql"></include>
+        <include refid="where_sql"></include>
+        <if test="orderBy!=null and orderType!= null">
+            ORDER BY ${orderBy} ${orderType}
+        </if>
+        <if test="pageSize>0">
+            limit #{start},#{pageSize}
+        </if>
+    </select>
+    <!--排序里面不能使用#,要用$-->
+</mapper>
