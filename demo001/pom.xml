@@ -30,7 +30,7 @@
             </exclusions>
         </dependency>
 
-        <!-- 给idea运行时使用,打包时不使用 -->
+        <!-- 给idea运行main时使用,打包时不使用 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
