@@ -11,7 +11,6 @@
     <groupId>com.awaken.tool</groupId>
     <artifactId>demo002</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>war</packaging>
     <name>demo002</name>
     <description>Demo project for Spring Boot</description>
     <properties>
