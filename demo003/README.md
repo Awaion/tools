@@ -21,7 +21,7 @@ Spring Data JPA 官方文档: https://spring.io/projects/spring-data-jpa
 
 本地服务启动访问地址：http://localhost/doc.html
 
-![首页](./document/20240409145010.png)
+![首页](src/main/resources/document/20240409145010.png)
 
 ## 集成步骤
 
