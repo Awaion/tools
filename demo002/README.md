@@ -1,4 +1,4 @@
-# SpringBoot+Knife4j+OpenApi3.0
+# Spring Boot + Knife4j
 
 ## 代码地址
 
@@ -7,10 +7,10 @@
 
 ## 简介
 
-`Swagger`接口文档自动生成框架早已深入人心,并且在市场上得到了广泛的应用,然而`Swagger3.0`也就是`OpenApi3.0`规范发布之后便停止了更新 维护.
-`Knife4j`是`Swagger`的增强版,对`SwaggerUI`做了优化,同时还有很多增强的功能.如今`Knife4j`从`4.0`开始已经逐渐使用`SpringDoc`作为`Swagger`
-的替代.`SpringDoc`针对`OpenApi3.0`的适配做了较大的调整,其中注解与`Swagger2`基本不通用.对于新项目而言,使用社区维护活跃的开源框架显得 非常重
-要.本文将介绍基于`SpringBoot2.7`集成`Knife4j4.3` + `OpenApi3.0`.
+Swagger 接口文档自动生成框架早已深入人心,并且在市场上得到了广泛的应用,然而 Swagger3.0 也就是 OpenApi3.0 规范发布之后便停止了更新维护.
+Knife4j 是 Swagger 的增强版,对 Swagger UI 做了优化,同时还有很多增强的功能.如今 Knife4j 从 4.0 开始已经逐渐使用 SpringDoc 作为 
+Swagger 的替代.SpringDoc 针对 OpenApi3.0 的适配做了较大的调整,其中注解与 Swagger2 基本不通用.对于新项目而言,使用社区维护活跃的开源框架显
+得非常重要.本文将介绍基于 SpringBoot2.7 集成 Knife4j4.3.
 
 Knife4j官方文档: https://doc.xiaominfo.com/docs/quick-start
 
@@ -24,7 +24,7 @@ Springdoc官方文档: https://springdoc.org
 
 ## 技术点
 
-1. pom.xml 新增knife4j-openapi3依赖
+1. pom.xml 新增 knife4j-openapi3-spring-boot-starter 依赖
 
 ``` code
 <!-- knife4j-openapi3 -->
@@ -72,7 +72,7 @@ public class UserPushTypeEntity {
 private Long userId;
 ```
 
-4. Swagger注解替换
+4. Swagger 注解替换
 
 ``` code
 @Api → @Tag
@@ -102,22 +102,22 @@ private Long userId;
 | Bootstrap4  | 前端框架               | https://www.bootcss.com/               |
 | jQuery3     | 路由框架               | https://blog.jquery.com/               |
 
-### 开发
+#### 开发
 
 | 工具          | 说明                | 官网                                            |
 | ------------- | ------------------- | ----------------------------------------------- |
 | IDEA          | 开发IDE             | https://www.jetbrains.com/idea/download         |
 
-### 开发环境
+#### 开发环境
 
 | 工具          | 版本号  | 下载                                                                                 |
 | ------------- | ------ | ------------------------------------------------------------                         |
 | JDK           | 1.8    | https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html |
 
 
-### 启动方式
+#### 启动方式
 
-1. main方法启动
+main方法启动
 
 ## 许可证
 

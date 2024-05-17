@@ -1,17 +1,21 @@
-# `SpringBoot`项目在外部`Tomcat`服务器上运行
+# Spring Boot + 外部 Tomcat
 
 ## 代码地址
 
 - Gitee: https://gitee.com/Awaion/tools/tree/master/demo001
 - Github: https://github.com/Awaion/tools/tree/master/demo001 
 
-## 项目演示
+## 简介
+
+当项目运行背景是必须要使运行代码和 Web 服务器剥离时,我们就需要考虑如何改造可以在外部 Tomcat 上运行.
+
+## 演示
 
 本地服务启动访问地址：http://localhost
 
 ![首页](src/main/resources/document/20240406164219.jpg)
 
-## 技术点
+## 集成步骤
 
 1. pom.xml
 
@@ -38,7 +42,7 @@
 </dependency>
 ```
 
-2. Demo001Application.java 继承SpringBootServletInitializer类,并重写configure方法
+2. Demo001Application.java 继承 SpringBootServletInitializer 类,并重写 configure 方法
 
 ```code
 @SpringBootApplication
@@ -93,6 +97,7 @@ mvn clean package -Dmaven.test.skip=true
 3. 启动tomcat,访问 http://localhost:8080/demo001-0.0.1-SNAPSHOT
 
 ## 许可证
+
 [MIT License](https://opensource.org/license/mit)
 
 Copyright (c) 2024-2024 awaion

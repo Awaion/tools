@@ -1,24 +1,16 @@
-# Java相关知识点
+# 模块化 Java Web
 
-## 友情提示
+## 代码地址
 
-- 1. **代码地址**：[Github](https://github.com/Awaion/tools) 。
+- Gitee: https://gitee.com/Awaion/tools/tree/master/demo010
+- Github: https://github.com/Awaion/tools/tree/master/demo010
 
-## 前言
+## 简介
 
-`awaken`项目致力于基于Java基础上,集成各种技术框架,用于理解框架集成原理。
-
-## 项目文档
-
-文档地址：[https://github.com/Awaion/tools](https://github.com/Awaion/tools)
-
-## 当前项目介绍
-
-- 如何搭建运行一个模块化项目
-- 需要依赖`MySQL`, `Tomcat`
+- 需要依赖 MySQL , Tomcat
 - 这是一个古老的项目
 
-### 模块化
+## 模块化
 
 模块化是软件开发模式的一种,它将一个大型的软件系统划分成多个独立的模块,每个模块完成一个特定的子功能,并且能够与其他模块独立地工作.
 模块集成起来可以构成一个整体,完成特定的功能,进而满足用户需求.
@@ -41,50 +33,55 @@
 - 最小知识原则(迪米特法则)(LKP):模块之间只能依赖于最小的一组接口,即模块只能访问它所需的最少信息.这样可以降低模块之间的耦合度,提高系统的灵活
 性和可维护性.
 
-### 项目演示
+## 演示
+
 本地服务启动访问地址：http://localhost:8080/login.html  
+
 本地服务启动访问地址：http://localhost:8081/login.html  
+
 ![首页](./core/src/main/resources/init/019.png)  
 
 ![首页](./core/src/main/resources/init/021.png)  
 
-### 技术点
-1. web.xml 作为配置解析入口
+## 集成步骤
 
-### 技术选型
-#### 后端技术
+说明: https://awaion.github.io/01_enterprise/0003_java_modules.html
+
+## 技术说明
+
+#### 后端
+
 | 技术                 | 说明                | 官网                                           |
 | --------------------| ------------------- | ---------------------------------------------- |
 | SpringMVC           | MVC框架            | https://spring.io/projects/spring-webflow         |
 | Spring4             | DI框架              | https://spring.io/projects/spring-framework         |
 | MyBatis3            | ORM框架             | https://mybatis.org/mybatis-3/         |
 
-#### 前端技术
+#### 前端
+
 | 技术         | 说明                   | 官网                                               |
 | ----------   | ---------------------  | --------------------------------------            |
 | jQuery.js       | 前端框架               | https://jquery.com/                             |
 
-#### 架构图
-##### 系统架构图
-loading...
+#### 开发工具
 
-## 环境搭建
-### 开发工具
 | 工具          | 说明                | 官网                                            |
 | ------------- | ------------------- | ----------------------------------------------- |
 | IDEA          | 开发IDE             | https://www.jetbrains.com/idea/download         |
 
-### 开发环境
+#### 开发环境
+
 | 工具          | 版本号  | 下载                                                                                 |
 | ------------- | ------ | ------------------------------------------------------------                         |
 | JDK           | 1.8    | https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html |
 
 
-### 搭建步骤
-> Windows环境启动
-- Tomcat服务启动
+#### 启动方式
+
+Tomcat服务启动
 
 ## 许可证
+
 [MIT License](https://opensource.org/license/mit)
 
 Copyright (c) 2024-2024 Awaion

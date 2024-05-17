@@ -1,59 +1,60 @@
-# Java相关知识点
+# 无框架 Java Web
 
-## 友情提示
-> 1. **代码地址**：[Github](https://github.com/Awaion/tools) 。
+## 代码地址
 
-## 前言
-`awaken`项目致力于基于Java基础上,集成各种技术框架,用于理解框架集成原理。
+- Gitee: https://gitee.com/Awaion/tools/tree/master/demo007
+- Github: https://github.com/Awaion/tools/tree/master/demo007
 
-## 项目文档
-文档地址：[https://github.com/Awaion/tools](https://github.com/Awaion/tools)
+## 简介
 
-## 当前项目介绍
-- 没有框架的Java Web项目如何运行
-- 需要依赖`MySQL`, `Tomcat`
-- 这是一个古老的项目
+- 无框架 Java Web 项目如何运行
+- 需要依赖 MySQL , Tomcat
+- 一个古老的项目
 
-### 项目演示
+## 演示
+
 本地服务启动访问地址：http://localhost:8080/demo007_Web_exploded/student/list
+
 ![首页](./resources/init/20240514231342.png)
 
-### 技术点
-1. web.xml 作为配置解析入口
+## 集成步骤
 
-### 技术选型
-#### 后端技术
+说明: https://awaion.github.io/01_enterprise/0001_java_web.html
+
+## 技术说明
+
+#### 后端
+
 | 技术                 | 说明                | 官网                                           |
 | --------------------| ------------------- | ---------------------------------------------- |
 | JDBC               | Java技术             | https://dev.java/learn/         |
 | Servlet            | Java技术             | https://dev.java/learn/         |
 
-#### 前端技术
+#### 前端
+
 | 技术         | 说明                   | 官网                                               |
 | ----------   | ---------------------  | --------------------------------------            |
 | html/css/js/jsp       | 前端语言               | https://www.w3.org/                             |
 
-#### 架构图
-##### 系统架构图
-loading...
+#### 开发工具
 
-## 环境搭建
-### 开发工具
 | 工具          | 说明                | 官网                                            |
 | ------------- | ------------------- | ----------------------------------------------- |
 | IDEA          | 开发IDE             | https://www.jetbrains.com/idea/download         |
 
-### 开发环境
+#### 开发环境
+
 | 工具          | 版本号  | 下载                                                                                 |
 | ------------- | ------ | ------------------------------------------------------------                         |
 | JDK           | 1.8    | https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html |
 
 
-### 搭建步骤
-> Windows环境启动
-- Tomcat服务启动
+#### 启动方式
+
+Tomcat服务启动
 
 ## 许可证
+
 [MIT License](https://opensource.org/license/mit)
 
 Copyright (c) 2024-2024 Awaion

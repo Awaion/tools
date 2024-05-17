@@ -6,6 +6,7 @@
 - Github: https://github.com/Awaion/tools/tree/master/demo004
 
 ## 简介
+
 MyBatis-Plus 是一个 MyBatis 的增强工具,在 MyBatis 的基础上只做增强不做改变,为简化开发/提高效率而生.
 - 无侵入: 只做增强不做改变,引入它不会对现有工程产生影响,如丝般顺滑.
 - 损耗小: 启动即会自动注入基本 CURD,性能基本无损耗,直接面向对象操作.
@@ -30,6 +31,7 @@ MyBatis-Plus 是一个 MyBatis 的增强工具,在 MyBatis 的基础上只做增
 ![首页](src/main/resources/document/20240410110713.png)
 
 ### 集成步骤
+
 1. pom.xml 新增 Spring Data JPA 依赖
 
 ```
@@ -38,6 +40,13 @@ MyBatis-Plus 是一个 MyBatis 的增强工具,在 MyBatis 的基础上只做增
     <groupId>com.baomidou</groupId>
     <artifactId>mybatis-plus-boot-starter</artifactId>
     <version>3.5.4</version>
+</dependency>
+
+<!-- MySQL Connector -->
+<dependency>
+    <groupId>mysql</groupId>
+    <artifactId>mysql-connector-java</artifactId>
+    <scope>runtime</scope>
 </dependency>
 
 <!-- mybatis-plus-generator -->
@@ -105,14 +114,13 @@ public class Sys_User {
 | ------------- | ------------------- | ----------------------------------------------- |
 | IDEA          | 开发IDE             | https://www.jetbrains.com/idea/download         |
 
-### 开发环境
+#### 开发环境
 
 | 工具          | 版本号  | 下载                                                                                 |
 | ------------- | ------ | ------------------------------------------------------------                         |
 | JDK           | 1.8    | https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html |
 
-
-### 启动方式
+#### 启动方式
 
 main方法启动
 
