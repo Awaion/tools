@@ -4,7 +4,7 @@ metadata:
   labels:
     app: demo002
   name: demo002
-  namespace: springboot-web   #一定要写名称空间
+  namespace: devops01jmn9p   #一定要写名称空间
 spec:
   progressDeadlineSeconds: 600
   replicas: 1
@@ -53,7 +53,7 @@ metadata:
   labels:
     app: demo002
   name: demo002
-  namespace: springboot-web
+  namespace: devops01jmn9p
 spec:
   ports:
     - name: http
