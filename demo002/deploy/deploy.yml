@@ -24,7 +24,8 @@ spec:
       imagePullSecrets:
         - name: aliyun-docker-account  #提前在项目下配置访问阿里云的账号密码
       containers:
-        - image: ${REGISTRY}/${DOCKERHUB_NAMESPACE}/demo002:SNAPSHOT-${BUILD_NUMBER}
+        - image: registry.cn-hangzhou.aliyuncs.com/awaion/demo002:SNAPSHOT-34
+#        - image: ${REGISTRY}/${DOCKERHUB_NAMESPACE}/demo002:SNAPSHOT-${BUILD_NUMBER}
  #         readinessProbe:
  #           httpGet:
  #             path: /actuator/health
