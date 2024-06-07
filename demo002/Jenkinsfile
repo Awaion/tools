@@ -1,0 +1,94 @@
+pipeline {
+    agent {
+        node {
+            label 'maven'
+        }
+    }
+
+    parameters {
+        string(name:'TAG_NAME',defaultValue: '',description:'')
+    }
+
+    environment {
+        DOCKER_CREDENTIAL_ID = 'dockerhub-id'
+        GITHUB_CREDENTIAL_ID = 'github-id'
+        KUBECONFIG_CREDENTIAL_ID = 'demo-kubeconfig'
+        REGISTRY = 'registry.cn-hangzhou.aliyuncs.com'
+        DOCKERHUB_NAMESPACE = 'docker_username'
+        GITHUB_ACCOUNT = 'kubesphere'
+        APP_NAME = 'devops-java-sample'
+    }
+
+    stages {
+        stage('拉取代码') {
+            agent none
+            steps {
+                container('maven') {
+                    git(url: 'https://gitee.com/Awaion/tools.git', credentialsId: "$GITHUB_CREDENTIAL_ID", branch: 'master', changelog: true, poll: false)
+                    sh 'ls -al'
+                    sh 'ls -al demo002'
+                }
+            }
+        }
+
+        stage('项目编译') {
+            agent none
+            steps {
+                container('maven') {
+                    sh 'ls -al demo002'
+//                     sh 'mvn  -Dmaven.test.skip=true -gs `pwd`/configuration/settings.xml clean package'
+                    sh 'mvn clean package -f demo002/pom.xml -Dmaven.test.skip=true'
+                    sh 'ls -al demo002/target'
+                }
+
+            }
+        }
+
+        stage('构建&推送镜像') {
+            parallel {
+                stage('推送demo002镜像') {
+                    agent none
+                    steps {
+                        container('maven') {
+//                             withCredentials([usernamePassword(passwordVariable : 'DOCKER_PASSWORD' ,usernameVariable : 'DOCKER_USERNAME' ,credentialsId : "$DOCKER_CREDENTIAL_ID" ,)]) {
+                            withCredentials([usernamePassword(credentialsId : "$DOCKER_CREDENTIAL_ID" ,usernameVariable : 'DOCKER_USER_VAR' ,passwordVariable : 'DOCKER_PWD_VAR' ,)]) {
+                                sh 'ls -al demo002/target'
+//                              sh 'docker build -f Dockerfile-online -t $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER .'
+                                sh 'docker build -f demo002/Dockerfile -t $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER .'
+//                              sh 'docker build -t demo002:latest -f demo002/Dockerfile demo002'
+
+//                              sh 'echo "$DOCKER_PASSWORD" | docker login $REGISTRY -u "$DOCKER_USERNAME" --password-stdin'
+                                sh 'echo "$DOCKER_PWD_VAR" | docker login $REGISTRY -u "$DOCKER_USER_VAR" --password-stdin'
+
+//                              sh 'docker push $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER'
+                                sh 'docker push $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER'
+
+//                              sh 'docker tag demo002:latest $REGISTRY/$DOCKERHUB_NAMESPACE/demo002:SNAPSHOT-$BUILD_NUMBER'
+                                sh 'docker tag  $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:SNAPSHOT-$BRANCH_NAME-$BUILD_NUMBER $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:latest '
+                                sh 'docker push  $REGISTRY/$DOCKERHUB_NAMESPACE/$APP_NAME:latest '
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        stage('部署') {
+          when{
+            branch 'master'
+          }
+          steps {
+            input(id: 'deploy-to-dev', message: 'deploy to dev?')
+            kubernetesDeploy(configs: 'demo002/deploy/devops-sample.yaml', enableConfigSubstitution: true, kubeconfigId: "$KUBECONFIG_CREDENTIAL_ID")
+          }
+        }
+
+        stage('发送确认邮件') {
+            agent none
+            steps {
+//                 mail(to: '1191831992@qq.com', cc: '', subject: 'dev发布成功', body: "构建成功了  $BUILD_NUMBER")
+                emailext (to: '1191831992@qq.com', subject: 'dev发布成功', body: "构建成功了  $BUILD_NUMBER")
+            }
+        }
+    }
+}
