@@ -1,0 +1,11 @@
+org.springframework.boot.SpringApplicationRunListener=com.awaion.demo015.listener.MySpringApplicationRunListener
+
+org.springframework.context.ApplicationListener=com.awaion.demo015.listener.MyApplicationListener
+
+org.springframework.context.ApplicationContextInitializer=com.awaion.demo015.listener.MyApplicationContextInitializer
+
+org.springframework.boot.ApplicationRunner=com.awaion.demo015.listener.MyApplicationRunner
+
+org.springframework.boot.BootstrapRegistryInitializer=com.awaion.demo015.listener.MyBootstrapRegistryInitializer
+
+org.springframework.boot.CommandLineRunner=com.awaion.demo015.listener.MyCommandLineRunner
