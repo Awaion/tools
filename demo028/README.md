@@ -7,9 +7,6 @@
 
 ## 简介
 
-Reactive Relational Database Connectivity(R2DBC) 项目将响应式编程 API 引入关系数据库
-
-- r2dbc https://r2dbc.io/
 - spring-data-r2dbc https://spring.io/projects/spring-data-r2dbc
 - spring-webflux https://docs.spring.io/spring-framework/reference/web/webflux.html
 - spring-boot-starter-webflux https://docs.spring.io/spring-boot/reference/web/reactive.html
