@@ -1,4 +1,4 @@
-## 分布式系统
+# 分布式系统
 
 ## 技术框架版本适配
 
@@ -62,7 +62,9 @@
 - 编译环境 Settings -> Java Compiler -> 17
 
 ![001.png](image/001.png)
+
 ![002.png](image/002.png)
+
 ![003.png](image/003.png)
 
 ## 代码统一规范
@@ -328,6 +330,7 @@ http://127.0.0.1:9411/
 ```
 
 ![008.png](image/008.png)
+
 ![007.png](image/007.png)
 
 更多
@@ -365,6 +368,7 @@ http://127.0.0.1:9411/
 - 服务发现自动配置类 GatewayDiscoveryClientAutoConfiguration
 
 ![009.png](image/009.png)
+
 ![017.png](image/017.png)
 
 更多
@@ -429,9 +433,13 @@ Nacos 是 Dynamic Naming and Configuration Service 的首字母简称,一个更�
 - 配置服务 (Configuration Service)
 
 ![018.png](image/018.png)
+
 ![019.png](image/019.png)
+
 ![020.png](image/020.png)
+
 ![011.png](image/011.png)
+
 ![nacosMap.jpg](image/nacosMap.jpg)
 
 服务端启动
@@ -499,6 +507,7 @@ http://localhost:8080/
 - Sentinel 1.6.3 引入了网关流控控制台的支持,用户可以直接在 Sentinel 控制台上查看 API Gateway 实时的 route 和自定义 API 分组监控,管理网关规则和 API 分组配置.
 
 ![022.png](image/022.png)
+
 ![023.png](image/023.png)
 
 更多
