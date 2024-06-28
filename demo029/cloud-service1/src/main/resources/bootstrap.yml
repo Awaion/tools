@@ -1,0 +1,19 @@
+spring:
+  application:
+    name: cloud-service1
+    ####Spring Cloud Consul for Service Discovery
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+      discovery:
+        service-name: ${spring.application.name}
+      config:
+        profile-separator: '-' # default value is ","，we update '-'
+        format: YAML
+#        watch:
+#          wait-time: 1
+
+  # config/cloud-service1/data
+  #       /cloud-service1-dev/data
+  #       /cloud-service1-prod/data
