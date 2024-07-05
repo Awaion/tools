@@ -1,0 +1,11 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: demo032
+  cloud:
+    ai:
+      tongyi:
+#        api-key: sk-xxx
+        api-key: sk-xxx
