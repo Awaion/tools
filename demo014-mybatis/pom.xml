@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.awaion</groupId>
-	<artifactId>demo014</artifactId>
+	<artifactId>demo014-mybatis</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo014</name>
 	<description>SSM</description>
