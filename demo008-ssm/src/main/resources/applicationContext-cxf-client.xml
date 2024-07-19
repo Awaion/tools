@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+    <!--
+        远程处理类创建工厂
+        serviceClass:远程接口
+        address:远程调用地址
+     -->
+    <bean id="factoryBean" class="org.apache.cxf.jaxws.JaxWsProxyFactoryBean">
+        <property name="serviceClass" value="com.awaion.demo008.cxf.ICalculateService"/>
+        <property name="address" value="http://localhost/ws/calculate?wsdl"></property>
+    </bean>
+    <!-- 服务类可以直接通过@Autowried注入 -->
+    <bean id="calculateServic"
+          class="com.awaion.demo008.cxf.ICalculateService"
+          factory-bean="factoryBean"
+          factory-method="create">
+    </bean>
+</beans>
