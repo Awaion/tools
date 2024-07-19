@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.awaion.cloud</groupId>
-    <artifactId>demo029</artifactId>
+    <artifactId>demo029-alibaba</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
