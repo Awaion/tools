@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.awaion</groupId>
-	<artifactId>demo033</artifactId>
+	<artifactId>demo033-netty</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>demo033</name>
