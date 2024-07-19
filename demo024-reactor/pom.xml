@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.awaion</groupId>
-	<artifactId>demo024</artifactId>
+	<artifactId>demo024-reactor</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>demo024</name>
 	<description>Demo project for Spring Boot</description>
