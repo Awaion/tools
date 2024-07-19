@@ -36,7 +36,7 @@
 		<!-- 新增自定义启动组件 -->
 		<dependency>
 			<groupId>com.awaion</groupId>
-			<artifactId>demo016-spring-boot-starter</artifactId>
+			<artifactId>demo016-starter</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
