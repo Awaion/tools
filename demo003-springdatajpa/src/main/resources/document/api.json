@@ -1,0 +1,81 @@
+{"url":"/student/save"},
+{
+  "name": "学生1",
+  "age": 18,
+  "birthday": "2010-12-01",
+  "remark": "学生备注1"
+},
+{
+"name": "学生2",
+"age": 22,
+"birthday": "2010-12-10",
+"remark": "学生备注2"
+},
+{
+"name": "学生3",
+"age": 21,
+"birthday": "2010-12-15",
+"remark": "学生备注3"
+},
+
+{"url":"/class/save"},
+{
+"name": "班级1",
+"remark": "备注1"
+},
+{
+"name": "班级5",
+"remark": "备注5"
+},
+{
+"name": "班级3",
+"remark": "备注3"
+},
+
+{"url":"/teacher/save"},
+{
+"name": "教师1",
+"age": 22,
+"birthday": "2000-01-10",
+"subject": "科目一",
+"remark": "备注1"
+},
+{
+"name": "教师6",
+"age": 26,
+"birthday": "2000-01-16",
+"subject": "科目六",
+"remark": "备注6"
+},
+{
+"name": "教师2",
+"age": 22,
+"birthday": "2000-01-12",
+"subject": "科目二",
+"remark": "备注2"
+},
+{
+"name": "教师7",
+"age": 27,
+"birthday": "2000-01-17",
+"subject": "科目七",
+"remark": "备注7"
+}
+
+{"url":"/student/find1"},
+{"url":"/student/find2"},
+{"url":"/student/find3"},
+{
+"name": "学生1",
+"age": 18,
+"birthday": "2010-12-01"
+}
+
+{"url":"/teacher/find1"},
+{"url":"/teacher/find1"},
+{
+"name": "教师1",
+"age": 22,
+"birthday": "2000-01-10",
+"subject": "科目一"
+}
