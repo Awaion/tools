@@ -13,7 +13,7 @@
 		<module>demo002-knife4j</module>
 		<module>demo003-springdatajpa</module>
 		<module>demo004-mybatisplus</module>
-		<module>demo005</module>
+		<module>demo005-vue</module>
 		<module>demo006</module>
 <!--		<module>demo007</module>-->
 		<module>demo008</module>
