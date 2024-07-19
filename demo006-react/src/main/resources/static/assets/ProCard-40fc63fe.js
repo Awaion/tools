@@ -1,0 +1,1 @@
+import{j as e,_ as s}from"./index-e632bbdf.js";import{C as a,D as t,T as d}from"./index-73afd5ab.js";var i=function(o){return e.jsx(a,s({bodyStyle:{padding:0}},o))},r=a;r.isProCard=!0;r.Divider=t;r.TabPane=d;r.Group=i;const P=r;export{P};
