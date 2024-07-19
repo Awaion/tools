@@ -11,7 +11,7 @@
     </parent>
 
     <groupId>com.awaion</groupId>
-    <artifactId>demo030</artifactId>
+    <artifactId>demo030-juc</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
     <properties>
