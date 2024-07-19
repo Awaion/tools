@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.awaion</groupId>
+	<artifactId>tools</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>tools</name>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>demo001</module>
+		<module>demo002</module>
+		<module>demo003</module>
+		<module>demo004</module>
+		<module>demo005</module>
+		<module>demo006</module>
+<!--		<module>demo007</module>-->
+		<module>demo008</module>
+		<module>demo009</module>
+		<module>demo010</module>
+<!--		<module>demo011</module>-->
+<!--		<module>demo012</module>-->
+		<module>demo013</module>
+		<module>demo014</module>
+		<module>demo015</module>
+		<module>demo016</module>
+		<module>demo017</module>
+		<module>demo018</module>
+		<module>demo019</module>
+		<module>demo020</module>
+		<module>demo021</module>
+		<module>demo022</module>
+		<module>demo023</module>
+		<module>demo024</module>
+		<module>demo025</module>
+		<module>demo026</module>
+		<module>demo027</module>
+		<module>demo028</module>
+		<module>demo029</module>
+		<module>demo030</module>
+		<module>demo031</module>
+		<module>demo032</module>
+		<module>demo033</module>
+		<module>demo034</module>
+	</modules>
+
+
+
+</project>
