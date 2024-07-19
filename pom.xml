@@ -9,9 +9,9 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>demo001-springboot-tomcat</module>
-		<module>demo002</module>
-		<module>demo003</module>
+		<module>demo001-tomcat</module>
+		<module>demo002-knife4j</module>
+		<module>demo003-springdatajpa</module>
 		<module>demo004</module>
 		<module>demo005</module>
 		<module>demo006</module>
