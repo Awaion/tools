@@ -21,28 +21,28 @@
 		<module>demo010-module</module>
 <!--		<module>demo011</module>-->
 <!--		<module>demo012</module>-->
-		<module>demo013</module>
-		<module>demo014</module>
-		<module>demo015</module>
-		<module>demo016</module>
-		<module>demo017</module>
-		<module>demo018</module>
-		<module>demo019</module>
-		<module>demo020</module>
-		<module>demo021</module>
-		<module>demo022</module>
-		<module>demo023</module>
-		<module>demo024</module>
-		<module>demo025</module>
-		<module>demo026</module>
-		<module>demo027</module>
-		<module>demo028</module>
-		<module>demo029</module>
-		<module>demo030</module>
-		<module>demo031</module>
-		<module>demo032</module>
-		<module>demo033</module>
-		<module>demo034</module>
+		<module>demo013-springboot3</module>
+		<module>demo014-mybatis</module>
+		<module>demo015-listener</module>
+		<module>demo016-starter</module>
+		<module>demo017-redis</module>
+		<module>demo018-swagger</module>
+		<module>demo019-webflux</module>
+		<module>demo020-kafka</module>
+		<module>demo021-security</module>
+		<module>demo022-prometheus</module>
+		<module>demo023-grallvm</module>
+		<module>demo024-reactor</module>
+		<module>demo025-reactor</module>
+		<module>demo026-webflux</module>
+		<module>demo027-r2dbc</module>
+		<module>demo028-rws</module>
+		<module>demo029-alibaba</module>
+		<module>demo030-juc</module>
+		<module>demo031-datastructure</module>
+		<module>demo032-springai</module>
+		<module>demo033-netty</module>
+		<module>demo034-redisson</module>
 	</modules>
 
 
