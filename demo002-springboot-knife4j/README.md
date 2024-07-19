@@ -1,9 +1,9 @@
-# Spring Boot + Knife4j
+# SpringBoot + Knife4j
 
 ## 代码地址
 
-- Gitee: https://gitee.com/Awaion/tools/tree/master/demo002
-- Github: https://github.com/Awaion/tools/tree/master/demo002
+- Gitee: https://gitee.com/Awaion/tools
+- Github: https://github.com/Awaion/tools
 
 ## 简介
 
