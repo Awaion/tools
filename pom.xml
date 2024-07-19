@@ -9,7 +9,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<module>demo001</module>
+		<module>demo001-springboot-tomcat</module>
 		<module>demo002</module>
 		<module>demo003</module>
 		<module>demo004</module>
