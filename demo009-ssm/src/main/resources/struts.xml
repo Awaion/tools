@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+        "http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <constant name="struts.devMode" value="true"/>
+    <constant name="struts.ui.theme" value="simple"/>
+    <package name="pssPkg" extends="struts-default" namespace="/">
+        <interceptors>
+            <!--<interceptor name="loginInterceptor" class="LoginInterceptor"/>-->
+            <!--<interceptor name="securityInterceptor" class="SecurityInterceptor"/>-->
+            <interceptor-stack name="myStack">
+                <!--<interceptor-ref name="loginInterceptor"/>-->
+                <!--<interceptor-ref name="securityInterceptor"/>-->
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>
+        </interceptors>
+        <default-interceptor-ref name="myStack"/>
+        <global-results>
+            <result name="login">/login.jsp</result>
+            <result name="nopermission">/WEB-INF/views/common/nopermission.jsp</result>
+        </global-results>
+
+        <!--配置全局异常,用来捕捉[用户没有操作权限]的异常-->
+        <global-exception-mappings>
+            <exception-mapping exception="org.apache.shiro.authz.UnauthorizedException"
+                               result="nopermission"></exception-mapping>
+        </global-exception-mappings>
+
+        <!--<action name="nopermission">
+            <result>/WEB-INF/views/common/nopermission.jsp</result>
+        </action>-->
+
+        <action name="main">
+            <result>/WEB-INF/views/main.jsp</result>
+        </action>
+
+        <action name="login_*" class="loginAction" method="{1}">
+            <interceptor-ref name="defaultStack"/>
+            <result name="main" type="redirectAction">main</result>
+        </action>
+
+        <action name="*_*" class="{1}Action" method="{2}">
+            <result name="list">/WEB-INF/views/{1}/list.jsp</result>
+            <result name="input">/WEB-INF/views/{1}/input.jsp</result>
+            <result type="redirectAction">{1}</result>
+        </action>
+    </package>
+</struts>

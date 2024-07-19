@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.awaion.demo009.mapper.RoleMapper">
+    <resultMap type="com.awaion.demo009.domain.Role" id="baseMap">
+        <id column="id" property="id"/>
+        <result column="sn" property="sn"/>
+        <result column="name" property="name"/>
+        <collection property="permissions"
+                    ofType="com.awaion.demo009.domain.Permission"
+                    column="id"
+                    select="com.awaion.demo009.mapper.PermissionMapper.selectByRoleId"/>
+    </resultMap>
+    <select id="get" resultMap="baseMap">
+		select 
+			* from role 
+		where id=#{id}
+	</select>
+    <insert id="save" useGeneratedKeys="true" keyColumn="id" keyProperty="id">
+		insert into role(sn,name) values(#{sn},#{name})
+	</insert>
+    <update id="update">
+		update role 
+		set 
+			sn=#{sn},
+			name=#{name}
+		 where id= #{id}
+	</update>
+    <delete id="delete">
+		delete from role where id = #{id}
+	</delete>
+
+    <select id="listAll" resultType="com.awaion.demo009.domain.Role">
+		select * from role
+	</select>
+
+    <sql id="where_sql">
+        <where>
+        </where>
+    </sql>
+
+    <select id="queryByConditionCount" resultType="long">
+        select count(*) from role
+        <include refid="where_sql"/>
+    </select>
+    <select id="queryByCondition" resultType="com.awaion.demo009.domain.Role">
+        select * from role
+        <include refid="where_sql"/>
+        limit #{start},#{pageSize}
+    </select>
+
+    <insert id="insertRelation">
+		insert into role_permission(role_id,permission_id) values(#{roleId},#{permissionId})
+	</insert>
+    <delete id="deleteRelation">
+		delete from role_permission where role_id = #{roleId}
+	</delete>
+    <select id="selectByEmployeeId" resultType="com.awaion.demo009.domain.Role">
+		select * from role where id in(
+		   select role_id from employee_role where employee_id = #{id}
+		)
+	</select>
+
+    <select id="queryRolesByUserId" resultType="string">
+		select sn from role where id in(
+		   select role_id from employee_role where employee_id = #{id}
+		)
+	</select>
+
+</mapper>
